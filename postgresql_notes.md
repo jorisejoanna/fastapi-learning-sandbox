@@ -65,7 +65,10 @@
 - create the table in the db you're connected to
 - the new table should have a meta data about it
 
-### `ALTER TABLE table_name ADD COLUMN column_name DATATYPE;`
+### `CREATE TABLE table_name (column_name DATATYPE CONSTRAINTS);`
+- create a table along with columns 
+
+### `ALTER TABLE table_name ADD COLUMN column_name DATATYPE CONSTRAINTS;`
 - to add columns to describe the data in them
 - add a constraint by putting it right after the data type (without comma)
 
@@ -82,6 +85,12 @@
 ### `ALTER TABLE table_name ADD PRIMARY KEY (column_name);`
 - to add primary key
 - PK is a column that uniquely identifies each row in the table
+
+### `ALTER TABLE table_name ADD PRIMARY KEY (column1, column2);`
+- create composite primary key (primary key from two columns)
+
+### `ALTER TABLE table_name ADD FOREIGN KEY(column_name) REFERENCES referenced_table(referenced_column);`
+- to add foreign key
 
 ### `ALTER TABLE table_name ADD UNIQUE(column_name);`
 - enforce one-to-one relationship between tables
@@ -123,3 +132,11 @@
 
 ### `DELETE FROM table_name WHERE condition;`
 - delete a record (row)
+
+SELECT columns FROM table_1 FULL JOIN table_2 ON table_1.primary_key_column = table_2.foreign_key_column;
+-get data from multiple tables with a JOIN command
+
+SELECT columns FROM junction_table
+FULL JOIN table_1 ON junction_table.foreign_key_column = table_1.primary_key_column
+FULL JOIN table_2 ON junction_table.foreign_key_column = table_2.primary_key_column
+-joins three tables

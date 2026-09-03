@@ -6,6 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base #import declarative_base
 SQLALCHEMY_DATABASE_URL = "postgresql://neondb_owner:npg_un1lLHtR5FxY@ep-holy-thunder-b3cu8d7z-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 
 #2. Create the SQLAlchemy engine that connects Python to Neon Cloud
+#engine holds the connections to the database
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 #3. Create a SessionLocal factory class for database transactions 

@@ -1,3 +1,7 @@
+"""
+Defines how data is structured inside PostgreSQL database tables
+"""
+
 from sqlalchemy import Column, Integer, String, Boolean, Float #import SQL column types from SQLAlchemy
 from database import Base #import the Base class from database.py
 

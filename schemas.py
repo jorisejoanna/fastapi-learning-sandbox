@@ -22,3 +22,19 @@ class ItemResponse(ItemBase):
 # tells Pydantic to read data directly from SQLAlchemy database objects
 class Config:
     from_attributes = True
+
+#----------User Schemas----------
+
+#1. schema for creating a new user (signup form input)
+class UserCreate(BaseModel):
+    email:str
+    password:str    #raw password from the user (will be hashed before storing)
+
+#2. schema for returning user data in API responses (NEVER RETURNS PASSWORD!)
+class UserResponse(BaseModel):
+    id:int
+    email:str
+    is_active:bool
+
+    class Config:
+        from_attributes=True

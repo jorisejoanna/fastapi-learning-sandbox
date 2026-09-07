@@ -14,3 +14,4 @@ class Item(Base):
     description = Column (String)
     price = Column (Float)
     is_offer = Column (Boolean, default=False)
+    category = Column(String, nullable=True)

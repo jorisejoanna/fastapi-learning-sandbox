@@ -1,5 +1,13 @@
 
-
+"""
+Day 12 - JWT Token Authentication
+-Logging in with credentials to receive a cryptographically signed JSON Web Token (JWT), and using that token to protect private routes like /users/me
+-Web APIs are stateless, which means the server doesn't remember who you are from one request to the next
+-We never wnat a frontend app to send user's password with every single button click or API call
+-Instead, the user logs in once via /token
+-The server verifies the password, stams a temporary signed digital badge called a JWT Token (valid for, say, 30 minutes), and hands it back
+-For every future request (e.g. GET/users/me), the user simply flashes this token in the request header (Authorization: Bearer <token>)!
+"""
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session

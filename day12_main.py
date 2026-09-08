@@ -73,6 +73,22 @@ def login_for_access_token(
     access_token = utils.create_access_token(data={"sub":user.email})
     return{"access_token": access_token, "token_type": "bearer"}
 
+#----------Day 14 SIGNUP ENDPOINT----------
+@app.post("/users/", response_model=schemas.UserResponse, status_code=201)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    existing_user = db.query(models.User).filter(models.User.email==user.email).first()
+    if existing_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered! satu kali cukup la HAHAHHA"
+        )
+    hashed = utils.hash_password(user.password)
+    db_user = models.User(email=user.email, hashed_password=hashed, is_active=True)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
 #4. PROTECTED ENDPOINT: Only accessible with a valid tokennn!!!
 @app.get("/users/me", response_model=schemas.UserResponse)
 def read_users_me(current_user:models.User=Depends(get_current_user)):

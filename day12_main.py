@@ -11,8 +11,9 @@ Day 12 - JWT Token Authentication
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-import jwt
+from fastapi.middleware.cors import CORSMiddleware
 
+import jwt
 import database
 import models
 import schemas
@@ -24,6 +25,15 @@ models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")  #1. tells FastAPI where clients should send username/password to get a token
+
+#add CORS Middleware which allows React frontend on different domain to talk to the API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #database session dependency
 def get_db():

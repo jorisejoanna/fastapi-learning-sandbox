@@ -2,7 +2,7 @@
 Validates data coming in from user's JSON payload and formats data going out in the HTTP response
 """
 
-from pydantic import BaseModel #import BaseModel from Pydantic for data validation
+from pydantic import BaseModel, ConfigDict #import BaseModel from Pydantic for data validation
 
 #1. base schema (shared fields for creating/reading items)
 class ItemBase(BaseModel):
@@ -36,8 +36,11 @@ class UserResponse(BaseModel):
     email:str
     is_active:bool
 
+    model_config=ConfigDict(from_attributes=True)
+    """
     class Config:
         from_attributes=True
+        """
 
 #----------Token Schemas----------
 

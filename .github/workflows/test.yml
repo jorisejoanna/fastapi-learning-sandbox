@@ -15,7 +15,7 @@ jobs:
 
     #4. inject test environment variables (since .env is ignored by Git!)
     env:
-      DATABASE_URL: sqlite:///:memory:
+      DATABASE_URL: "sqlite:///:memory:"
       SECRET_KEY: my_temporary_ci_secret_key_for_testing
       ACCESS_TOKEN_EXPIRE_MINUTES: 15
 

@@ -1,3 +1,8 @@
+#Continous Integration (CI) - Whenever a code is pushed, GitHub boots up a clean server (usually Ubuntu Linux), installs your dependencies, and runs pytest
+#                           - If even one test fails, you'll be alerted through GitHub immediately
+#Continous Deployment (CD) - Once the tests pass, the hosting platform (like Render, Vercel, or Heroku) automatically pulls the new code and updates the live website
+#YAML file (.yml) - instruction sheet that tells GitHub Actions how to run the CI/CD pipeline
+
 #1. the name displayed on GitHub Actions dashboard
 name: Run Automated Tests 
 

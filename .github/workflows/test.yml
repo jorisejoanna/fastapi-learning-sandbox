@@ -1,0 +1,44 @@
+#1. the name displayed on GitHub Actions dashboard
+name: Run Automated Tests 
+
+#2. trigger: run this workflow on every git push and pull request to 'main'
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    #3. virtual machine: run on the latest clean Ubuntu Linux server
+    runs-on: ubuntu-latest
+
+    #4. inject test environment variables (since .env is ignored by Git!)
+    env:
+      DATABASE_URL: sqlite:///:memory:
+      SECRET_KEY: my_temporary_ci_secret_key_for_testing
+      ACCESS_TOKEN_EXPIRE_MINUTES: 15
+
+    steps:
+
+        #Step A: download the repo code into the Ubuntu runner
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+        #Step B: install Python 3.12 (matching the development version)
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"  #caches packages for lightning-fast future runszz ayy
+
+        #Step C: install all packages from requirements.txt
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+        #Step D: run the complete test suite!
+      - name: Run Pytest suite
+        run: |
+          pytest -v
